@@ -2,11 +2,22 @@ import React, { useState } from "react";
 import './App.css'
 import CountdownTimer from "./components/CountdownTimer";
 import PhotoSlider from "./components/PhotoSlider";
-import JSConfetti from "js-confetti"; // Import js-confetti
+import JSConfetti from "js-confetti";
 
 const App = () => {
+  function calculateWishCount() {
+    const currentTime = new Date();
+    const startTime = new Date('2025-02-02T00:00:00Z');
+    const timeDifference = currentTime - startTime;
+    const hoursSinceStart = Math.floor(timeDifference / (1000 * 60 * 60));
+    const randomValue = Math.floor(Math.random() * 11);
+    const wishCount = (10 * hoursSinceStart) + randomValue;
+
+    return wishCount;
+  }
+  
   const birthday = "2025-02-10T18:30:00Z" // 2025-02-11 IST
-  const [wishCount, setWishCount] = useState(0);
+  const [wishCount, setWishCount] = useState(calculateWishCount());
   const jsConfetti = new JSConfetti(); // Create an instance of JSConfetti
 
   const incrementWishCount = () => {
